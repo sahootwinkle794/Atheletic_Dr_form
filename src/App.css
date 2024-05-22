@@ -44,8 +44,23 @@ body {
   margin-top: 6px; /* Optional: Adjust the margin of the StepLabel */
 }
 
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiInputLabel-sizeMedium.MuiInputLabel-outlined.MuiFormLabel-colorPrimary.MuiFormLabel-filled.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiInputLabel-sizeMedium.MuiInputLabel-outlined.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+  background-color: white !important;
+  font-weight: bold !important;
+  font-size: 20px !important;
+}
+.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3.css-zow5z4-MuiGrid-root {
+  margin-top: 30px;
+}
 
-
+.inputlabel{
+  background-color: white;
+}
+.logo{
+  margin: auto;
+  height: 70px;
+  width: 70px;
+}
 
 
 .App {
