@@ -1,44 +1,60 @@
-import React from 'react';
-import { Container, TextField, Typography, Grid, Button, Stepper, Step, StepLabel, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import './App.css';
-import logo from '../src/assets/logo.png'
-import Swal from 'sweetalert2';
-
+import React from "react";
+import {
+  Container,
+  TextField,
+  Typography,
+  Grid,
+  Button,
+  Stepper,
+  Step,
+  StepLabel,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import "./App.css";
+import logo from "../src/assets/logo.png";
+import Swal from "sweetalert2";
 
 const PhysicianForm = () => {
   const [formData, setFormData] = React.useState({
-    name: '',
-    dob: '',
-    height: '',
-    weight: '',
-    pulse: '',
-    vision: '',
-    medicalFindings: '',
-    clearance: '',
-    recommendations: '',
-    physicianName: '',
-    date: '',
-    address: '',
-    phone: '',
-    signature: '',
-    stress: '',
-    sadness: '',
-    safety: '',
-    tobaccoUse: '',
-    recentTobaccoUse: '',
-    alcoholDrugs: '',
-    steroids: '',
-    supplements: '',
-    safetyMeasures: ''
+    name: "",
+    dob: "",
+    height: "",
+    weight: "",
+    pulse: "",
+    vision: "",
+    medicalFindings: "",
+    clearance: "",
+    recommendations: "",
+    physicianName: "",
+    date: "",
+    address: "",
+    phone: "",
+    signature: "",
+    stress: "",
+    sadness: "",
+    safety: "",
+    tobaccoUse: "",
+    recentTobaccoUse: "",
+    alcoholDrugs: "",
+    steroids: "",
+    supplements: "",
+    safetyMeasures: "",
   });
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = ['Basic Information', 'Medical Findings', 'Clearance and Recommendations', 'Sensitive Issues'];
+  const steps = [
+    "Basic Information",
+    "Medical Findings",
+    "Clearance and Recommendations",
+    "Sensitive Issues",
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
   };
 
   const handleNext = () => {
@@ -49,11 +65,10 @@ const PhysicianForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic
-    
+
     setIsSubmitted(true); // Set form submission state to true
     // if(isSubmitted)
     // Swal.fire({
@@ -66,15 +81,15 @@ const PhysicianForm = () => {
 
   const [isSubmitted, setIsSubmitted] = React.useState(false);
 
-  const submitFun =(e) =>{
+  const submitFun = (e) => {
     e.preventDefault();
     Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: 'Form submitted successfully!',
+      icon: "success",
+      title: "Success!",
+      text: "Form submitted successfully!",
     });
-  }
-  
+  };
+
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -87,17 +102,19 @@ const PhysicianForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 label="Date of Birth"
                 name="dob"
+                type="date"
                 value={formData.dob}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -107,7 +124,7 @@ const PhysicianForm = () => {
                 value={formData.height}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -117,7 +134,7 @@ const PhysicianForm = () => {
                 value={formData.weight}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -127,7 +144,7 @@ const PhysicianForm = () => {
                 value={formData.pulse}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -137,7 +154,7 @@ const PhysicianForm = () => {
                 value={formData.vision}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
           </>
@@ -153,7 +170,7 @@ const PhysicianForm = () => {
               fullWidth
               multiline
               rows={4}
-              InputProps={{ style: { backgroundColor: 'white' } }}
+              InputProps={{ style: { backgroundColor: "white" } }}
             />
           </Grid>
         );
@@ -162,15 +179,19 @@ const PhysicianForm = () => {
           <>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Clearance</InputLabel>
+                <InputLabel className="inputlabel">Clearance</InputLabel>
                 <Select
                   value={formData.clearance}
                   onChange={handleChange}
                   name="clearance"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Cleared'}>Cleared for all sports without restriction</MenuItem>
-                  <MenuItem value={'Not Cleared'}>Not cleared for any sports</MenuItem>
+                  <MenuItem value={"Cleared"}>
+                    Cleared for all sports without restriction
+                  </MenuItem>
+                  <MenuItem value={"Not Cleared"}>
+                    Not cleared for any sports
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -183,7 +204,7 @@ const PhysicianForm = () => {
                 fullWidth
                 multiline
                 rows={4}
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -193,7 +214,7 @@ const PhysicianForm = () => {
                 value={formData.physicianName}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -203,7 +224,7 @@ const PhysicianForm = () => {
                 value={formData.date}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -213,7 +234,7 @@ const PhysicianForm = () => {
                 value={formData.address}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -223,7 +244,7 @@ const PhysicianForm = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -233,7 +254,7 @@ const PhysicianForm = () => {
                 value={formData.signature}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: 'white' } }}
+                InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
           </>
@@ -243,134 +264,156 @@ const PhysicianForm = () => {
           <>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Do you feel stressed out or under a lot of pressure?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Do you feel stressed out or under a lot of pressure?
+                </InputLabel>
                 <Select
                   value={formData.stress}
                   onChange={handleChange}
                   name="stress"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Do you ever feel sad, hopeless, depressed, or anxious?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Do you ever feel sad, hopeless, depressed, or anxious?
+                </InputLabel>
                 <Select
                   value={formData.sadness}
                   onChange={handleChange}
                   name="sadness"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Do you feel safe at your home or residence?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Do you feel safe at your home or residence?
+                </InputLabel>
                 <Select
                   value={formData.safety}
                   onChange={handleChange}
                   name="safety"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Have you ever tried cigarettes, chewing tobacco, snuff, or dip?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Have you ever tried cigarettes, chewing tobacco, snuff, or
+                  dip?
+                </InputLabel>
                 <Select
                   value={formData.tobaccoUse}
                   onChange={handleChange}
                   name="tobaccoUse"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>During the past 30 days, did you use chewing tobacco, snuff, or dip?</InputLabel>
+                <InputLabel className="inputlabel">
+                  During the past 30 days, did you use chewing tobacco, snuff,
+                  or dip?
+                </InputLabel>
                 <Select
                   value={formData.recentTobaccoUse}
                   onChange={handleChange}
                   name="recentTobaccoUse"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Do you drink alcohol or use any other drugs?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Do you drink alcohol or use any other drugs?
+                </InputLabel>
                 <Select
                   value={formData.alcoholDrugs}
                   onChange={handleChange}
                   name="alcoholDrugs"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Have you ever taken anabolic steroids or used any other performance supplement?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Have you ever taken anabolic steroids or used any other
+                  performance supplement?
+                </InputLabel>
                 <Select
                   value={formData.steroids}
                   onChange={handleChange}
                   name="steroids"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Have you ever taken any supplements to help you gain or lose weight or improve your performance?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Have you ever taken any supplements to help you gain or lose
+                  weight or improve your performance?
+                </InputLabel>
                 <Select
                   value={formData.supplements}
                   onChange={handleChange}
                   name="supplements"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel className='inputlabel'>Do you wear a seat belt, use a helmet, and use condoms?</InputLabel>
+                <InputLabel className="inputlabel">
+                  Do you wear a seat belt, use a helmet, and use condoms?
+                </InputLabel>
                 <Select
                   value={formData.safetyMeasures}
                   onChange={handleChange}
                   name="safetyMeasures"
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value={'Yes'}>Yes</MenuItem>
-                  <MenuItem value={'No'}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
           </>
         );
       default:
-        return 'Unknown step';
+        return "Unknown step";
     }
   };
 
@@ -390,19 +433,24 @@ const PhysicianForm = () => {
           </Step>
         ))}
       </Stepper>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           {getStepContent(activeStep)}
         </Grid>
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: "20px" }}>
           {activeStep !== 0 && (
-            <Button onClick={handleBack} style={{ marginRight: '10px' }}>
+            <Button onClick={handleBack} style={{ marginRight: "10px" }}>
               Back
             </Button>
           )}
-          {activeStep === steps.length - 1? (
-
-            <Button type="submit" variant="contained" color="primary" value="submit" onClick={submitFun}>
+          {activeStep === steps.length - 1 ? (
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              value="submit"
+              onClick={submitFun}
+            >
               Submit
             </Button>
           ) : (
