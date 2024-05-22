@@ -1,6 +1,5 @@
-// src/PhysicianForm.js
 import React from 'react';
-import { Container, TextField, Typography, Grid, Button, Checkbox, FormControlLabel } from '@mui/material';
+import { Container, TextField, Typography, Grid, Button, Checkbox, FormControlLabel, Stepper, Step, StepLabel } from '@mui/material';
 
 const PhysicianForm = () => {
   const [formData, setFormData] = React.useState({
@@ -20,9 +19,20 @@ const PhysicianForm = () => {
     signature: ''
   });
 
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = ['Basic Information', 'Medical Findings', 'Clearance and Recommendations'];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleSubmit = (e) => {
@@ -31,66 +41,69 @@ const PhysicianForm = () => {
     console.log(formData);
   };
 
-  return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Preparticipation Physical Evaluation</Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Date of Birth"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Height"
-              name="height"
-              value={formData.height}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Weight"
-              name="weight"
-              value={formData.weight}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Pulse"
-              name="pulse"
-              value={formData.pulse}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Vision"
-              name="vision"
-              value={formData.vision}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          {/* Additional medical fields */}
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <>
+            <Grid item xs={12}>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Date of Birth"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Height"
+                name="height"
+                value={formData.height}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Weight"
+                name="weight"
+                value={formData.weight}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Pulse"
+                name="pulse"
+                value={formData.pulse}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Vision"
+                name="vision"
+                value={formData.vision}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+          </>
+        );
+      case 1:
+        return (
           <Grid item xs={12}>
             <TextField
               label="Medical Findings"
@@ -102,88 +115,125 @@ const PhysicianForm = () => {
               rows={4}
             />
           </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.clearance === 'Cleared'}
-                  onChange={() => setFormData({ ...formData, clearance: 'Cleared' })}
-                  name="clearance"
-                />
-              }
-              label="Cleared for all sports without restriction"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.clearance === 'Not Cleared'}
-                  onChange={() => setFormData({ ...formData, clearance: 'Not Cleared' })}
-                  name="clearance"
-                />
-              }
-              label="Not cleared for any sports"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Recommendations"
-              name="recommendations"
-              value={formData.recommendations}
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={4}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Physician Name"
-              name="physicianName"
-              value={formData.physicianName}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Signature"
-              name="signature"
-              value={formData.signature}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">Submit</Button>
-          </Grid>
+        );
+      case 2:
+        return (
+          <>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.clearance === 'Cleared'}
+                    onChange={() => setFormData({ ...formData, clearance: 'Cleared' })}
+                    name="clearance"
+                  />
+                }
+                label="Cleared for all sports without restriction"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.clearance === 'Not Cleared'}
+                    onChange={() => setFormData({ ...formData, clearance: 'Not Cleared' })}
+                    name="clearance"
+                  />
+                }
+                label="Not cleared for any sports"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Recommendations"
+                name="recommendations"
+                value={formData.recommendations}
+                onChange={handleChange}
+                fullWidth
+                multiline
+                rows={4}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Physician Name"
+                name="physicianName"
+                value={formData.physicianName}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Signature"
+                name="signature"
+                value={formData.signature}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid>
+          </>
+        );
+      default:
+        return 'Unknown step';
+    }
+  };
+
+  return (
+    <Container>
+      <Typography variant="h4" gutterBottom>Preparticipation Physical Evaluation</Typography>
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={index}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={3}>
+          {getStepContent(activeStep)}
         </Grid>
+        <div style={{ marginTop: '20px' }}>
+          {activeStep !== 0 && (
+            <Button onClick={handleBack} style={{ marginRight: '10px' }}>
+              Back
+            </Button>
+          )}
+          {activeStep === steps.length - 1 ? (
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          ) : (
+            <Button variant="contained" color="primary" onClick={handleNext}>
+              Next
+            </Button>
+          )}
+        </div>
       </form>
     </Container>
   );
