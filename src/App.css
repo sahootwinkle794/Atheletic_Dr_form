@@ -1,3 +1,52 @@
+/* Add this CSS to your App.css file */
+
+/* Global styles */
+body {
+  background-color: #fbf9d4;
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Container styles */
+.container {
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Heading styles */
+.heading {
+  text-align: center;
+}
+
+/* Custom styles for Stepper */
+/* Override the width of the Stepper connector */
+.MuiStepConnector-lineHorizontal {
+  border-top-width: 3px !important;
+}
+
+
+/* Override the width of the Stepper icon container */
+.MuiStepIcon-root {
+  width: 24px; /* Optional: Adjust the width of the icon container */
+  height: 24px; /* Optional: Adjust the height of the icon container */
+}
+
+/* Override the size of the Stepper icon */
+.MuiStepIcon-text {
+  font-size: 14px; /* Optional: Adjust the font size of the icon */
+}
+
+/* Override the margin of the StepLabel */
+.MuiStepLabel-label {
+  margin-top: 6px; /* Optional: Adjust the margin of the StepLabel */
+}
+
+
+
+
 
 .App {
   text-align: center;

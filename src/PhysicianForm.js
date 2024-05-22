@@ -53,6 +53,7 @@ const PhysicianForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -62,6 +63,7 @@ const PhysicianForm = () => {
                 value={formData.dob}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -71,6 +73,7 @@ const PhysicianForm = () => {
                 value={formData.height}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -80,6 +83,7 @@ const PhysicianForm = () => {
                 value={formData.weight}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -89,6 +93,7 @@ const PhysicianForm = () => {
                 value={formData.pulse}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -98,6 +103,7 @@ const PhysicianForm = () => {
                 value={formData.vision}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
           </>
@@ -113,6 +119,7 @@ const PhysicianForm = () => {
               fullWidth
               multiline
               rows={4}
+              InputProps={{ style: { backgroundColor: 'white' } }}
             />
           </Grid>
         );
@@ -150,6 +157,7 @@ const PhysicianForm = () => {
                 fullWidth
                 multiline
                 rows={4}
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -159,6 +167,7 @@ const PhysicianForm = () => {
                 value={formData.physicianName}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -168,6 +177,7 @@ const PhysicianForm = () => {
                 value={formData.date}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -177,6 +187,7 @@ const PhysicianForm = () => {
                 value={formData.address}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -186,6 +197,7 @@ const PhysicianForm = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -195,6 +207,7 @@ const PhysicianForm = () => {
                 value={formData.signature}
                 onChange={handleChange}
                 fullWidth
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </Grid>
           </>
@@ -205,9 +218,14 @@ const PhysicianForm = () => {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Preparticipation Physical Evaluation</Typography>
-      <Stepper activeStep={activeStep}>
+    <Container className="container">
+      <Typography variant="h4" gutterBottom className="heading">
+        Preparticipation Physical Evaluation
+      </Typography>
+      <Typography variant="h6" gutterBottom className="heading">
+        PHYSICAL EXAMINATION FORM
+      </Typography>
+      <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => (
           <Step key={index}>
             <StepLabel>{label}</StepLabel>
