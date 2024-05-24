@@ -22,17 +22,25 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Checkbox
 
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Checkbox } from "@mui/material";
 import "./App.css";
 import logo from "../src/assets/logo.png";
 import Swal from "sweetalert2";
 
 const PhysicianForm = () => {
 
+  const [clearedForParticipation, setClearedForParticipation] = useState(false);
+  const [physicianName, setPhysicianName] = useState("");
+  const handleClearedForParticipationChange = (event) => {
+    setClearedForParticipation(event.target.checked);
+  };
+  const handlePhysicianNameChange = (event) => {
+    setPhysicianName(event.target.value);
+  };
   const [pendingEvaluationChecked, setPendingEvaluationChecked] = useState(false);
   const [forAnySportsChecked, setForAnySportsChecked] = useState(false);
   const [forCertainSportsChecked, setForCertainSportsChecked] = useState(false);
@@ -98,7 +106,8 @@ const PhysicianForm = () => {
     "Examination",
     "Medical Status",
     "Musculoskeletal",
-    "Clearance & Recommendations"
+    "Clearance & Recommendations",
+    "Physician Details"
 
   ];
 
@@ -630,7 +639,75 @@ const PhysicianForm = () => {
             )}
 
           </>
-        )
+        );
+      case 6:
+        return (
+          <>
+            <Container style={{ marginTop: "30px" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={clearedForParticipation}
+                    onChange={handleClearedForParticipationChange}
+                  />
+                }
+                label="I have examined the above-named student and completed the preparticipation physical evaluation. The athlete does not present apparent clinical contraindications to practice and participate in the sport(s) as outlined above. A copy of the physical exam is on record in my office and can be made available to the school at the request of the parents. If conditions arise after the athlete has been cleared for participation, a physician may rescind the clearance until the problem is resolved and the potential consequences are completely explained to the athlete (and parents/guardians)."
+                labelPlacement="end" // Aligns the label to the end of the checkbox
+              />
+              
+            <Grid item xs={6}>
+              <TextField
+                label="Physician Name"
+                name="physicianName"
+                value={formData.physicianName}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Signature"
+                name="signature"
+                value={formData.signature}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid> 
+            </Container>
+          </>
+        );
       default:
         return "Unknown step";
     }
