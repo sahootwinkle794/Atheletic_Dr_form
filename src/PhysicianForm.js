@@ -26,24 +26,29 @@ import {
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import { Checkbox } from "@mui/material";
 import "./App.css";
 import logo from "../src/assets/logo.png";
 import Swal from "sweetalert2";
 
 const PhysicianForm = () => {
-  const [status, setStatus] = useState([
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    { normal: "", abnormal: "" },
-    // Add more rows as needed
-  ]);
+
+  const [pendingEvaluationChecked, setPendingEvaluationChecked] = useState(false);
+  const [forAnySportsChecked, setForAnySportsChecked] = useState(false);
+  const [forCertainSportsChecked, setForCertainSportsChecked] = useState(false);
+
+  const handlePendingEvaluationChecked = (event) => {
+    setPendingEvaluationChecked(event.target.checked);
+  };
+
+  const handleForAnySportsChecked = (event) => {
+    setForAnySportsChecked(event.target.checked);
+  };
+
+  const handleForCertainSportsChecked = (event) => {
+    setForCertainSportsChecked(event.target.checked);
+  };
+
   const [normalStatusList, setNormalStatusList] = useState([]);
   const [abnormalStatusList, setAbnormalStatusList] = useState([]);
 
@@ -91,8 +96,10 @@ const PhysicianForm = () => {
     "Basic Information",
     "Sensitive Issues",
     "Examination",
-    "Clearance and Recommendations",
     "Medical Status",
+    "Musculoskeletal",
+    "Clearance & Recommendations"
+
   ];
 
   const [rows, setRows] = React.useState([
@@ -106,8 +113,22 @@ const PhysicianForm = () => {
     { medical: ["Genitourinary (males only)b"] },
     { medical: ["Skin", "HSV, lesions suggestive of MRSA, tinea corporis"] },
     { medical: ["Neurologic c"] },
+    { musculoskeletal: ["Neck"] },
+    { musculoskeletal: ["Back"] },
+    { musculoskeletal: ["Shoulder/arm"] },
+    { musculoskeletal: ["Elbow/forearm"] },
+    { musculoskeletal: ["Wrist/hand/fingers"] },
+    { musculoskeletal: ["Hip/thigh"] },
+    { musculoskeletal: ["Knee"] },
+    { musculoskeletal: ["Leg/ankle"] },
+    { musculoskeletal: ["Foot/toes"] },
+    { musculoskeletal: ["Functional", "• Duck-walk, single leg hop"] },
     // Add more rows as needed
   ]);
+
+  const initialStatusList = Array(rows.length).fill("");
+  const medicalRows = rows.filter(row => row.medical);
+  const musculoskeletalRows = rows.filter(row => row.musculoskeletal);
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,7 +171,7 @@ const PhysicianForm = () => {
     setSelectedButtonIndex(index === selectedButtonIndex ? null : index);
   };
 
-  
+
 
   const getStepContent = (step) => {
     switch (step) {
@@ -423,117 +444,23 @@ const PhysicianForm = () => {
                 InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel className="inputlabel">Clearance</InputLabel>
-                <Select
-                  value={formData.clearance}
-                  onChange={handleChange}
-                  name="clearance"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <MenuItem value={"Cleared"}>
-                    Cleared for all sports without restriction
-                  </MenuItem>
-                  <MenuItem value={"Not Cleared"}>
-                    Not cleared for any sports
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Recommendations"
-                name="recommendations"
-                value={formData.recommendations}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                rows={4}
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Physician Name"
-                name="physicianName"
-                value={formData.physicianName}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Signature"
-                name="signature"
-                value={formData.signature}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid> */}
+
           </>
         );
       case 3:
-        return (
-          <Grid item xs={12}>
-            <TextField
-              label="Medical Findings"
-              name="medicalFindings"
-              value={formData.medicalFindings}
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={4}
-              InputProps={{ style: { backgroundColor: "white" } }}
-            />
-          </Grid>
-        );
-      case 4:
         return (
           <Container style={{ marginTop: "30px" }}>
             <TableContainer component={Paper} className="meditable">
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Medical</TableCell>
-                    <TableCell>Normal</TableCell>
-                    <TableCell>Abnormal</TableCell>
+                    <TableCell><b>Medical</b></TableCell>
+                    <TableCell><b>Normal</b></TableCell>
+                    <TableCell><b>Abnormal Findings</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row, index) => (
+                  {medicalRows.map((row, index) => (
                     <TableRow key={index}>
                       <TableCell>
                         {Array.isArray(row.medical) ? (
@@ -569,7 +496,141 @@ const PhysicianForm = () => {
             </TableContainer>
           </Container>
         );
+      case 4:
+        return (
+          <Container style={{ marginTop: "30px" }}>
+            <TableContainer component={Paper} className="meditable">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell><b>Musculoskeletal</b></TableCell>
+                    <TableCell><b>Normal</b></TableCell>
+                    <TableCell><b>Abnormal Findings</b></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {musculoskeletalRows.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        {Array.isArray(row.musculoskeletal) ? (
+                          <ul>
+                            {row.musculoskeletal.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          row.musculoskeletal
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={normalStatusList[index]}
+                          onChange={(e) => handleNormalStatusChange(e, index)}
+                          fullWidth
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={abnormalStatusList[index]}
+                          onChange={(e) => handleAbnormalStatusChange(e, index)}
+                          fullWidth
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
 
+              </Table>
+            </TableContainer>
+          </Container>
+        );
+      case 5:
+        return (
+          <>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel className="inputlabel">Clearance</InputLabel>
+                <Select
+                  value={formData.clearance}
+                  onChange={handleChange}
+                  name="clearance"
+                  style={{ backgroundColor: "white" }}
+                >
+                  <MenuItem value={"Cleared"}>
+                    Cleared for all sports without restriction
+                  </MenuItem>
+                  <MenuItem value={"ClearedWithRecommendations"}>
+                    Cleared for all sports without restriction with recommendations for further evaluation or treatment for
+                  </MenuItem>
+                  <MenuItem value={"NotCleared"}>
+                    Not cleared
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            {formData.clearance === "ClearedWithRecommendations" && (
+              <Grid item xs={12}>
+                <TextField
+                  label="Recommendations for Treatment"
+                  name="recommendationsForTreatment"
+                  value={formData.recommendationsForTreatment}
+                  onChange={handleChange}
+                  fullWidth
+                  multiline
+                  rows={4}
+                  InputProps={{ style: { backgroundColor: "white" } }}
+                />
+              </Grid>
+            )}
+            {formData.clearance === "NotCleared" && (
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox checked={pendingEvaluationChecked} onChange={handlePendingEvaluationChecked} />}
+                  label="Pending further evaluation"
+                />
+                <FormControlLabel
+                  control={<Checkbox checked={forAnySportsChecked} onChange={handleForAnySportsChecked} />}
+                  label="For any sports"
+                />
+                <FormControlLabel
+                  control={<Checkbox checked={forCertainSportsChecked} onChange={handleForCertainSportsChecked} />}
+                  label="For certain sports"
+                />
+                {forCertainSportsChecked && (
+                  <>
+                    <TextField
+                      label="Sports"
+                      name="sports"
+                      value={formData.sports}
+                      onChange={handleChange}
+                      fullWidth
+                      InputProps={{ style: { backgroundColor: "white" } }}
+                    />
+                    <TextField
+                      label="Reason"
+                      name="reason"
+                      value={formData.reason}
+                      onChange={handleChange}
+                      fullWidth
+                      InputProps={{ style: { backgroundColor: "white" } }}
+                    />
+                    <TextField
+                      label="Recommendations"
+                      name="recommendations"
+                      value={formData.recommendations}
+                      onChange={handleChange}
+                      fullWidth
+                      multiline
+                      rows={4}
+                      InputProps={{ style: { backgroundColor: "white" } }}
+                    />
+                  </>
+                )}
+              </Grid>
+            )}
+
+          </>
+        )
       default:
         return "Unknown step";
     }
