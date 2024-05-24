@@ -52,7 +52,9 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
 .MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3.css-zow5z4-MuiGrid-root {
   margin-top: 30px;
 }
-
+.MuiContainer-root.MuiContainer-maxWidthMd.container.css-xdmu94-MuiContainer-root {
+  margin-top: 30px;
+}
 .inputlabel{
   background-color: white;
 }

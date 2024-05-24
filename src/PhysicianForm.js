@@ -12,6 +12,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  
 } from "@mui/material";
 import "./App.css";
 import logo from "../src/assets/logo.png";
@@ -42,14 +46,15 @@ const PhysicianForm = () => {
     steroids: "",
     supplements: "",
     safetyMeasures: "",
+    gender: "",
   });
 
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = [
     "Basic Information",
-    "Medical Findings",
-    "Clearance and Recommendations",
     "Sensitive Issues",
+    "Examination",
+    "Clearance and Recommendations"
   ];
 
   const handleChange = (e) => {
@@ -90,12 +95,13 @@ const PhysicianForm = () => {
     });
   };
 
+
   const getStepContent = (step) => {
     switch (step) {
       case 0:
         return (
           <>
-            <Grid item xs={12}>
+            <Grid item xs={8}>
               <TextField
                 label="Name"
                 name="name"
@@ -105,7 +111,7 @@ const PhysicianForm = () => {
                 InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 label="Date of Birth"
                 name="dob"
@@ -117,149 +123,10 @@ const PhysicianForm = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Height"
-                name="height"
-                value={formData.height}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Weight"
-                name="weight"
-                value={formData.weight}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Pulse"
-                name="pulse"
-                value={formData.pulse}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Vision"
-                name="vision"
-                value={formData.vision}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
+
           </>
         );
       case 1:
-        return (
-          <Grid item xs={12}>
-            <TextField
-              label="Medical Findings"
-              name="medicalFindings"
-              value={formData.medicalFindings}
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={4}
-              InputProps={{ style: { backgroundColor: "white" } }}
-            />
-          </Grid>
-        );
-      case 2:
-        return (
-          <>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel className="inputlabel">Clearance</InputLabel>
-                <Select
-                  value={formData.clearance}
-                  onChange={handleChange}
-                  name="clearance"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <MenuItem value={"Cleared"}>
-                    Cleared for all sports without restriction
-                  </MenuItem>
-                  <MenuItem value={"Not Cleared"}>
-                    Not cleared for any sports
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Recommendations"
-                name="recommendations"
-                value={formData.recommendations}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                rows={4}
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Physician Name"
-                name="physicianName"
-                value={formData.physicianName}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Signature"
-                name="signature"
-                value={formData.signature}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-          </>
-        );
-      case 3:
         return (
           <>
             <Grid item xs={12}>
@@ -412,55 +279,246 @@ const PhysicianForm = () => {
             </Grid>
           </>
         );
+      case 2:
+        return (
+          <>
+            <Grid item xs={12}>
+              <FormControl component="fieldset">
+                <Typography variant="subtitle1" gutterBottom>
+                  Gender
+                </Typography>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  row
+                >
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio color="primary" />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio color="primary" />}
+                    label="Female"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Height"
+                name="height"
+                value={formData.height}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Weight"
+                name="weight"
+                value={formData.weight}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Bp"
+                name="Bp"
+                value={formData.bp}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Pulse"
+                name="pulse"
+                value={formData.pulse}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Vision R 20/"
+                name="vision"
+                value={formData.vision}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="L 20 /"
+                name="l"
+                value={formData.l}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            {/* <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel className="inputlabel">Clearance</InputLabel>
+                <Select
+                  value={formData.clearance}
+                  onChange={handleChange}
+                  name="clearance"
+                  style={{ backgroundColor: "white" }}
+                >
+                  <MenuItem value={"Cleared"}>
+                    Cleared for all sports without restriction
+                  </MenuItem>
+                  <MenuItem value={"Not Cleared"}>
+                    Not cleared for any sports
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Recommendations"
+                name="recommendations"
+                value={formData.recommendations}
+                onChange={handleChange}
+                fullWidth
+                multiline
+                rows={4}
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Physician Name"
+                name="physicianName"
+                value={formData.physicianName}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Signature"
+                name="signature"
+                value={formData.signature}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{ style: { backgroundColor: "white" } }}
+              />
+            </Grid> */}
+          </>
+        );
+      case 3:
+        return (
+          <Grid item xs={12}>
+            <TextField
+              label="Medical Findings"
+              name="medicalFindings"
+              value={formData.medicalFindings}
+              onChange={handleChange}
+              fullWidth
+              multiline
+              rows={4}
+              InputProps={{ style: { backgroundColor: "white" } }}
+            />
+          </Grid>
+        );
+       
       default:
         return "Unknown step";
     }
   };
 
   return (
-    <Container className="container">
-      <img src={logo} alt="Logo" className="logo" />
-      <Typography variant="h4" gutterBottom className="heading">
-        Preparticipation Physical Evaluation
-      </Typography>
-      <Typography variant="h6" gutterBottom className="heading">
-        PHYSICAL EXAMINATION FORM
-      </Typography>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          {getStepContent(activeStep)}
-        </Grid>
-        <div style={{ marginTop: "20px" }}>
-          {activeStep !== 0 && (
-            <Button onClick={handleBack} style={{ marginRight: "10px" }}>
-              Back
-            </Button>
-          )}
-          {activeStep === steps.length - 1 ? (
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              value="submit"
-              onClick={submitFun}
-            >
-              Submit
-            </Button>
-          ) : (
-            <Button variant="contained" color="primary" onClick={handleNext}>
-              Next
-            </Button>
-          )}
-        </div>
-      </form>
-    </Container>
+    <>
+
+      <Container style={{ marginTop: '30px' }}>
+        <img src={logo} alt="Logo" className="logo" />
+        <Typography variant="h4" gutterBottom className="heading">
+          Preparticipation Physical Evaluation
+        </Typography>
+        <Typography variant="h6" gutterBottom className="heading">
+          PHYSICAL EXAMINATION FORM
+        </Typography>
+        <Stepper activeStep={activeStep} alternativeLabel style={{ marginTop: '30px' }}>
+          {steps.map((label, index) => (
+            <Step key={index}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Container>
+      <Container maxWidth="md" className="container" >
+        <form onSubmit={handleSubmit} >
+          <Grid container spacing={3}>
+            {getStepContent(activeStep)}
+          </Grid>
+          <div style={{ marginTop: "20px" }}>
+            {activeStep !== 0 && (
+              <Button onClick={handleBack} style={{ marginRight: "10px" }}>
+                Back
+              </Button>
+            )}
+            {activeStep === steps.length - 1 ? (
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                value="submit"
+                onClick={submitFun}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button variant="contained" color="primary" onClick={handleNext}  >
+                Next
+              </Button>
+            )}
+          </div>
+        </form>
+      </Container>
+    </>
   );
 };
 
