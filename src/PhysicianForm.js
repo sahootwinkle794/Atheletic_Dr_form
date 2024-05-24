@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   TextField,
@@ -15,13 +15,50 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+
 } from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import "./App.css";
 import logo from "../src/assets/logo.png";
 import Swal from "sweetalert2";
 
 const PhysicianForm = () => {
+  const [status, setStatus] = useState([
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    { normal: "", abnormal: "" },
+    // Add more rows as needed
+  ]);
+  const [normalStatusList, setNormalStatusList] = useState([]);
+  const [abnormalStatusList, setAbnormalStatusList] = useState([]);
+
+  const handleNormalStatusChange = (event, index) => {
+    const updatedNormalStatusList = [...normalStatusList];
+    updatedNormalStatusList[index] = event.target.value;
+    setNormalStatusList(updatedNormalStatusList);
+  };
+
+  const handleAbnormalStatusChange = (event, index) => {
+    const updatedAbnormalStatusList = [...abnormalStatusList];
+    updatedAbnormalStatusList[index] = event.target.value;
+    setAbnormalStatusList(updatedAbnormalStatusList);
+  };
+
   const [formData, setFormData] = React.useState({
     name: "",
     dob: "",
@@ -54,9 +91,24 @@ const PhysicianForm = () => {
     "Basic Information",
     "Sensitive Issues",
     "Examination",
-    "Clearance and Recommendations"
+    "Clearance and Recommendations",
+    "Medical Status",
   ];
 
+  const [rows, setRows] = React.useState([
+    { medical: ["Appearance", "Marfan stigmata (kyphoscoliosis, high-arched palate, pectus excavatum, arachnodactyly, arm span > height, hyperlaxity, myopia, MVP, aortic insufficiency)"] },
+    { medical: ["Eyes/ears/nose/throat", "Pupils equal", "Hearing"] },
+    { medical: ["Lymph nodes"] },
+    { medical: ["Hearta", "Murmurs (auscultation standing, supine, +/- Valsalva)", "•	Location of point of maximal impulse (PMI)"] },
+    { medical: ["Pulses", "Simultaneous femoral and radial pulses"] },
+    { medical: ["Lungs"] },
+    { medical: ["Abdomen"] },
+    { medical: ["Genitourinary (males only)b"] },
+    { medical: ["Skin", "HSV, lesions suggestive of MRSA, tinea corporis"] },
+    { medical: ["Neurologic c"] },
+    // Add more rows as needed
+  ]);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -94,7 +146,11 @@ const PhysicianForm = () => {
       text: "Form submitted successfully!",
     });
   };
+  const handleButtonClick = (index) => {
+    setSelectedButtonIndex(index === selectedButtonIndex ? null : index);
+  };
 
+  
 
   const getStepContent = (step) => {
     switch (step) {
@@ -464,7 +520,56 @@ const PhysicianForm = () => {
             />
           </Grid>
         );
-       
+      case 4:
+        return (
+          <Container style={{ marginTop: "30px" }}>
+            <TableContainer component={Paper} className="meditable">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Medical</TableCell>
+                    <TableCell>Normal</TableCell>
+                    <TableCell>Abnormal</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        {Array.isArray(row.medical) ? (
+                          <ul>
+                            {row.medical.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          row.medical
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={normalStatusList[index]}
+                          onChange={(e) => handleNormalStatusChange(e, index)}
+                          variant="outlined"
+                          fullWidth
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={abnormalStatusList[index]}
+                          onChange={(e) => handleAbnormalStatusChange(e, index)}
+                          variant="outlined"
+                          fullWidth
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Container>
+        );
+
       default:
         return "Unknown step";
     }

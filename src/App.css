@@ -63,6 +63,12 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
   height: 70px;
   width: 70px;
 }
+.meditable{
+  background-color: #edf6fc !important;
+}
+
+
+
 
 
 .App {
