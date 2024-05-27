@@ -588,6 +588,7 @@ const PhysicianForm = () => {
                   multiline
                   rows={4}
                   InputProps={{ style: { backgroundColor: "white" } }}
+                  
                 />
               </Grid>
             )}
@@ -614,6 +615,7 @@ const PhysicianForm = () => {
                       onChange={handleChange}
                       fullWidth
                       InputProps={{ style: { backgroundColor: "white" } }}
+                      style={{ marginBottom: "16px",marginTop:"10px" }}
                     />
                     <TextField
                       label="Reason"
@@ -622,6 +624,7 @@ const PhysicianForm = () => {
                       onChange={handleChange}
                       fullWidth
                       InputProps={{ style: { backgroundColor: "white" } }}
+                      style={{ marginBottom: "16px" }}
                     />
                     <TextField
                       label="Recommendations"
@@ -632,6 +635,7 @@ const PhysicianForm = () => {
                       multiline
                       rows={4}
                       InputProps={{ style: { backgroundColor: "white" } }}
+                      style={{ marginBottom: "16px" }}
                     />
                   </>
                 )}
@@ -643,19 +647,20 @@ const PhysicianForm = () => {
       case 6:
         return (
           <>
-            <Container style={{ marginTop: "30px" }}>
               <FormControlLabel
                 control={
                   <Checkbox
                     checked={clearedForParticipation}
                     onChange={handleClearedForParticipationChange}
+                    
                   />
                 }
-                label="I have examined the above-named student and completed the preparticipation physical evaluation. The athlete does not present apparent clinical contraindications to practice and participate in the sport(s) as outlined above. A copy of the physical exam is on record in my office and can be made available to the school at the request of the parents. If conditions arise after the athlete has been cleared for participation, a physician may rescind the clearance until the problem is resolved and the potential consequences are completely explained to the athlete (and parents/guardians)."
+                label="I have examined the above-named student and completed the preparticipation physical evaluation. The athlete does not present apparent clinical contraindications to practice and participate in the sport(s) as outlined above."
                 labelPlacement="end" // Aligns the label to the end of the checkbox
+                style={{ marginLeft: "16px" }}
               />
               
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <TextField
                 label="Physician Name"
                 name="physicianName"
@@ -663,26 +668,19 @@ const PhysicianForm = () => {
                 onChange={handleChange}
                 fullWidth
                 InputProps={{ style: { backgroundColor: "white" } }}
+                style={{ marginBottom: "16px" }}
               />
             </Grid>
             <Grid item xs={4}>
               <TextField
                 label="Date"
                 name="date"
+                type="date"
                 value={formData.date}
                 onChange={handleChange}
                 fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                label="Address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                fullWidth
-                InputProps={{ style: { backgroundColor: "white" } }}
+                InputLabelProps={{ shrink: true }}
+                style={{ marginBottom: "16px" }}
               />
             </Grid>
             <Grid item xs={4}>
@@ -693,19 +691,22 @@ const PhysicianForm = () => {
                 onChange={handleChange}
                 fullWidth
                 InputProps={{ style: { backgroundColor: "white" } }}
+                style={{ marginBottom: "16px" }}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8}>
               <TextField
-                label="Signature"
-                name="signature"
-                value={formData.signature}
+                label="Address"
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
                 fullWidth
                 InputProps={{ style: { backgroundColor: "white" } }}
+                style={{ marginBottom: "16px" }}
               />
-            </Grid> 
-            </Container>
+            </Grid>
+            
+          
           </>
         );
       default:
